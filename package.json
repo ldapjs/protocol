@@ -1,6 +1,6 @@
 {
   "name": "@ldapjs/protocol",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Provides constants for LDAP ASN.1 tags and values.",
   "main": "index.js",
   "scripts": {
