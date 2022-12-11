@@ -33,6 +33,87 @@ const operations = Object.freeze({
 })
 
 /**
+ * List of LDAP response result codes. See
+ * https://web.archive.org/web/20220812122129/https://nawilson.com/ldap-result-code-reference/
+ */
+const resultCodes = Object.freeze({
+  SUCCESS: 0,
+  OPERATIONS_ERROR: 1,
+  PROTOCOL_ERROR: 2,
+  TIME_LIMIT_EXCEEDED: 3,
+  SIZE_LIMIT_EXCEEDED: 4,
+  COMPARE_FALSE: 5,
+  COMPARE_TRUE: 6,
+  AUTH_METHOD_NOT_SUPPORTED: 7,
+  STRONGER_AUTH_REQUIRED: 8,
+  REFERRAL: 10,
+  ADMIN_LIMIT_EXCEEDED: 11,
+  UNAVAILABLE_CRITICAL_EXTENSION: 12,
+  CONFIDENTIALITY_REQUIRED: 13,
+  SASL_BIND_IN_PROGRESS: 14,
+  NO_SUCH_ATTRIBUTE: 16,
+  UNDEFINED_ATTRIBUTE_TYPE: 17,
+  INAPPROPRIATE_MATCHING: 18,
+  CONSTRAINT_VIOLATION: 19,
+  ATTRIBUTE_OR_VALUE_EXISTS: 20,
+  INVALID_ATTRIBUTE_SYNTAX: 21,
+  NO_SUCH_OBJECT: 32,
+  ALIAS_PROBLEM: 33,
+  INVALID_DN_SYNTAX: 34,
+  IS_LEAF: 35,
+  ALIAS_DEREFERENCING_PROBLEM: 36,
+  INAPPROPRIATE_AUTHENTICATION: 48,
+  INVALID_CREDENTIALS: 49,
+  INSUFFICIENT_ACCESS_RIGHTS: 50,
+  BUSY: 51,
+  UNAVAILABLE: 52,
+  UNWILLING_TO_PERFORM: 53,
+  LOOP_DETECT: 54,
+  SORT_CONTROL_MISSING: 60,
+  OFFSET_RANGE_ERROR: 61,
+  NAMING_VIOLATION: 64,
+  OBJECT_CLASS_VIOLATION: 65,
+  NOT_ALLOWED_ON_NON_LEAF: 66,
+  NOT_ALLOWED_ON_RDN: 67,
+  ENTRY_ALREADY_EXISTS: 68,
+  OBJECT_CLASS_MODS_PROHIBITED: 69,
+  RESULTS_TOO_LARGE: 70,
+  AFFECTS_MULTIPLE_DSAS: 71,
+  CONTROL_ERROR: 76,
+  OTHER: 80,
+  SERVER_DOWN: 81,
+  LOCAL_ERROR: 82,
+  ENCODING_ERROR: 83,
+  DECODING_ERROR: 84,
+  TIMEOUT: 85,
+  AUTH_UNKNOWN: 86,
+  FILTER_ERROR: 87,
+  USER_CANCELED: 88,
+  PARAM_ERROR: 89,
+  NO_MEMORY: 90,
+  CONNECT_ERROR: 91,
+  NOT_SUPPORTED: 92,
+  CONTROL_NOT_FOUND: 93,
+  NO_RESULTS_RETURNED: 94,
+  MORE_RESULTS_TO_RETURN: 95,
+  CLIENT_LOOP: 96,
+  REFERRAL_LIMIT_EXCEEDED: 97,
+  INVALID_RESPONSE: 100,
+  AMBIGUOUS_RESPONSE: 101,
+  TLS_NOT_SUPPORTED: 112,
+  INTERMEDIATE_RESPONSE: 113,
+  UNKNOWN_TYPE: 114,
+  CANCELED: 118,
+  NO_SUCH_OPERATION: 119,
+  TOO_LATE: 120,
+  CANNOT_CANCEL: 121,
+  ASSERTION_FAILED: 122,
+  AUTHORIZATION_DENIED: 123,
+  E_SYNC_REFRESH_REQUIRED: 4096,
+  NO_OPERATION: 16654
+})
+
+/**
  * Value constants and ASN.1 tags as defined in:
  * https://datatracker.ietf.org/doc/html/rfc4511#section-4.5.1
  */
@@ -58,4 +139,24 @@ const search = Object.freeze({
   FILTER_EXT: 0xa9
 })
 
-module.exports = Object.freeze({ core, operations, search })
+module.exports = Object.freeze({
+  core,
+  operations,
+  resultCodes,
+  search,
+
+  resultCodeToName
+})
+
+/**
+ * Given an LDAP result code, return the constant name for that code.
+ *
+ * @param {number} code
+ *
+ * @returns {string|undefined}
+ */
+function resultCodeToName (code) {
+  for (const [key, value] of Object.entries(resultCodes)) {
+    if (value === code) return key
+  }
+}
