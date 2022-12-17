@@ -29,7 +29,12 @@ const operations = Object.freeze({
   LDAP_RES_MODRDN: 0x6d,
   LDAP_RES_COMPARE: 0x6f,
   LDAP_RES_EXTENSION: 0x78,
-  LDAP_RES_INTERMEDIATE: 0x79
+  LDAP_RES_INTERMEDIATE: 0x79,
+
+  // This is really an operation. It's a specific
+  // sequence tag. But the referral situation is
+  // so specific it makes more sense to put it here.
+  LDAP_RES_REFERRAL: 0xa3
 })
 
 /**
